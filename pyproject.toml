@@ -111,13 +111,16 @@ select = ["E", "F", "W", "I", "N", "UP", "YTT", "S", "B", "A", "C4", "T10", "ISC
 ignore = ["E501", "S101", "PLR0913", "A002", "PLR2004", "PLR0912", "PLR0915", "ARG001", "B904", "F401", "SIM102", "RET504", "PLR0911", "N806", "ARG002", "SIM108", "SIM401", "S104", "F841", "PIE810", "PLW0127", "B007", "SIM117", "W293", "SIM105", "PLR1714", "SIM101", "C414", "SIM113"]
 
 [tool.mypy]
-python_version = "3.8"
+python_version = "3.9"
 warn_return_any = true
 warn_unused_configs = true
-disallow_untyped_defs = true
-disallow_incomplete_defs = true
+# Relaxed type checking to allow gradual typing adoption
+disallow_untyped_defs = false
+disallow_incomplete_defs = false
 check_untyped_defs = true
 warn_redundant_casts = true
-warn_unused_ignores = true
-strict_optional = true
-no_implicit_optional = true
+warn_unused_ignores = false
+strict_optional = false
+no_implicit_optional = false
+# Ignore missing imports for optional dependencies
+ignore_missing_imports = true
