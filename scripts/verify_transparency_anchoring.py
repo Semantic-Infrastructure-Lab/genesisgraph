@@ -85,7 +85,7 @@ class TransparencyVerifier:
                     )
                 else:
                     # Odd tree, current is the last node
-                    current_hash = current_hash
+                    pass  # current_hash remains unchanged
             else:
                 # Current node is right child
                 current_hash = TransparencyVerifier.hash_children(
@@ -242,7 +242,7 @@ class GenesisGraphTransparencyVerifier:
 
         messages.append(f"  Found {len(transparency)} transparency anchor(s)")
 
-        for i, entry in enumerate(transparency, 1):
+        for _, entry in enumerate(transparency, 1):
             entry_success, entry_msgs = self.verify_transparency_entry(op, entry)
             messages.extend(entry_msgs)
             success = success and entry_success
