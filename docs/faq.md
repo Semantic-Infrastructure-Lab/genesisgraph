@@ -2,20 +2,18 @@
 
 Frequently asked questions about adopting, implementing, and using GenesisGraph.
 
+!!! tip "New to GenesisGraph?"
+    See the [Documentation Home](index.md) for an overview, or jump to the [5-Minute Quickstart](getting-started/quickstart.md).
+
 ---
 
 ## General Questions
 
 ### What is GenesisGraph?
 
-GenesisGraph is an **open standard format for verifiable process provenance**. It describes how artifacts (files, parts, outputs) were produced through a chain of operations, tools, and attestations.
+**Short answer:** An open standard for cryptographically proving how things were made.
 
-Think of it as a verifiable recipe that proves:
-- What was made
-- How it was transformed
-- Which tools did the work
-- With what fidelity
-- Signed by whom
+**See:** [Documentation Home](index.md) for a complete overview of features and use cases.
 
 ### Why should I use GenesisGraph instead of just documenting my process?
 

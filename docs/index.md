@@ -1,24 +1,30 @@
 # GenesisGraph Documentation
 
-Welcome to the GenesisGraph documentation! GenesisGraph is an **open standard for proving how things were made** with cryptographically verifiable provenance.
+**An open standard for cryptographically proving how things were made.**
 
-## What is GenesisGraph?
+GenesisGraph enables verifiable provenance across AI pipelines, manufacturing, scientific research, healthcare, and supply chains—solving the "certification vs IP protection" dilemma through selective disclosure.
 
-GenesisGraph provides verifiable provenance for:
+## Why GenesisGraph?
 
-- **AI Pipelines** - Prove how AI models generated outputs
-- **Manufacturing** - Document production processes with IP protection
-- **Scientific Research** - Enable reproducible research
-- **Healthcare** - Track medical data processing chains
-- **Supply Chains** - Verify product origins and handling
+Traditional documentation can be edited. GenesisGraph provides:
 
-## Key Features
+✅ **Cryptographic Proof** - Hashes, signatures, timestamps prevent tampering
+✅ **Selective Disclosure** - Prove compliance without revealing trade secrets
+✅ **Machine Verification** - Auditors validate automatically
+✅ **Universal Format** - Works across tools, organizations, industries
+✅ **Progressive Trust** - Start simple, add cryptography when needed
 
-✅ **Cryptographic Verification** - Hashes, signatures, timestamps  
-✅ **Selective Disclosure** - Prove compliance without revealing trade secrets  
-✅ **Transparency Logs** - Tamper-evident audit trails (RFC 6962)  
-✅ **Industry Profiles** - AI/ML (FDA 21 CFR), Manufacturing (ISO 9001)  
-✅ **Progressive Trust** - Start simple, add cryptography as needed  
+## Core Innovation: A/B/C Disclosure Levels
+
+| Level | What You Share | Use When |
+|-------|---------------|----------|
+| **A: Full** | All details visible | Internal audits, open research |
+| **B: Partial** | Policy claims visible, parameters hidden | Regulatory compliance |
+| **C: Sealed** | Merkle commitments + TEE | High-value IP, supply chains |
+
+**Example:** Prove ISO 9001 compliance without revealing manufacturing toolpaths, or AI safety compliance without exposing proprietary prompts.
+
+**Learn more:** [Disclosure Levels Guide](user-guide/disclosure-levels.md)  
 
 ## Quick Links — Organized by Incremental Reveal
 

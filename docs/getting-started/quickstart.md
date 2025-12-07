@@ -2,19 +2,8 @@
 
 **Get up and running with verifiable process provenance in 5 minutes.**
 
----
-
-## What is GenesisGraph?
-
-GenesisGraph is a **standard format for proving how things were made**. Think of it as a verifiable recipe that cryptographically documents:
-
-- What was produced (artifacts)
-- How it was transformed (operations)
-- Which tools did the work (software, hardware, humans)
-- With what fidelity and loss (precision tracking)
-- Signed by whom (cryptographic attestation)
-
-**Use it for:** AI pipelines, manufacturing, scientific research, content authenticity, or any workflow where "prove how you made this" matters.
+!!! info "What is GenesisGraph?"
+    GenesisGraph is an open standard for cryptographically proving how things were made. See the [Documentation Home](../index.md) for a complete overview, or continue below for a hands-on tutorial.
 
 ---
 
