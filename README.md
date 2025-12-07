@@ -81,6 +81,25 @@ gg.save_yaml("workflow.gg.yaml")
 
 ## Core Innovation: A/B/C Disclosure Levels
 
+```mermaid
+graph LR
+    subgraph "Level A: Full"
+        A[👁️ All visible<br/>Complete transparency]
+    end
+    subgraph "Level B: Partial"
+        B[🔒 Claims verified<br/>Details hidden]
+    end
+    subgraph "Level C: Sealed"
+        C[🛡️ ZK proofs<br/>Zero disclosure]
+    end
+
+    A -.increasing privacy.-> B -.-> C
+
+    style A fill:#90EE90
+    style B fill:#FFD700
+    style C fill:#87CEEB
+```
+
 | Level | What You Share | Use When |
 |-------|---------------|----------|
 | **A: Full** | All details visible | Internal audits, open research |

@@ -14,7 +14,91 @@ GenesisGraph is designed as a modular, extensible provenance validation and gene
 4. **Security First**: Input validation, path traversal protection, DoS prevention
 5. **Performance**: Efficient validation for large documents (10,000+ entities)
 
-## System Architecture
+## Core Data Model: The Four Pillars
+
+Every GenesisGraph document is built from four fundamental node types:
+
+```mermaid
+graph TB
+    subgraph "The Four Pillars"
+        E[📦 ENTITY<br/>What was created<br/>Files, datasets, models]
+        O[⚙️ OPERATION<br/>How it was transformed<br/>Processing, training, inference]
+        T[🔧 TOOL<br/>Who/what did the work<br/>Software, machines, humans, AI]
+        A[✅ ATTESTATION<br/>Proof of trust<br/>Signatures, timestamps, claims]
+    end
+
+    E -.derived_from.-> E
+    O -->|inputs| E
+    O -->|outputs| E
+    O -->|tool| T
+    O -->|attestation| A
+    A -->|signer| T
+
+    style E fill:#90EE90
+    style O fill:#87CEEB
+    style T fill:#FFD700
+    style A fill:#FF9999
+
+    classDef pillar stroke:#333,stroke-width:3px
+    class E,O,T,A pillar
+```
+
+### Example: Operation DAG
+
+Here's how these components form a directed acyclic graph (DAG):
+
+```mermaid
+graph LR
+    subgraph Entities
+        E1[📦 dataset.csv<br/>SHA256:abc...]
+        E2[📦 model.pt<br/>SHA256:def...]
+        E3[📦 predictions.json<br/>SHA256:ghi...]
+    end
+
+    subgraph Operations
+        O1[⚙️ train_model<br/>Parameters:<br/>lr=0.001<br/>epochs=10]
+        O2[⚙️ run_inference<br/>Parameters:<br/>batch_size=32]
+    end
+
+    subgraph Tools
+        T1[🔧 pytorch@2.1.0<br/>NVIDIA A100]
+        T2[🔧 onnx_runtime@1.16<br/>CPU]
+    end
+
+    subgraph Attestations
+        A1[✅ Signed by<br/>did:web:org.ai<br/>2025-12-07]
+        A2[✅ Signed by<br/>did:key:z6Mk...<br/>2025-12-07]
+    end
+
+    E1 -->|input| O1
+    O1 -->|output| E2
+    E2 -->|input| O2
+    O2 -->|output| E3
+
+    O1 -.uses.-> T1
+    O2 -.uses.-> T2
+
+    O1 -.attested_by.-> A1
+    O2 -.attested_by.-> A2
+
+    style E1 fill:#90EE90
+    style E2 fill:#90EE90
+    style E3 fill:#90EE90
+    style O1 fill:#87CEEB
+    style O2 fill:#87CEEB
+    style T1 fill:#FFD700
+    style T2 fill:#FFD700
+    style A1 fill:#FF9999
+    style A2 fill:#FF9999
+```
+
+**Key Properties:**
+- **DAG Structure**: Operations form directed acyclic graph (no cycles)
+- **Lineage Tracking**: Entities reference `derived_from` to show provenance
+- **Attestations**: Each operation can be independently signed/verified
+- **Mixed Disclosure**: Each node can use different disclosure levels (A/B/C)
+
+## Implementation Architecture
 
 ```mermaid
 graph TB
@@ -54,6 +138,73 @@ graph TB
 - Signature verification (Ed25519, ECDSA, RSA)
 - Transparency log verification (RFC 6962)
 - Profile-specific validation (industry standards)
+
+**Validation Flow:**
+
+```mermaid
+flowchart TD
+    Start([GenesisGraph Document]) --> Parse[Parse YAML/JSON]
+    Parse --> Schema{Schema Valid?}
+    Schema -->|No| Fail1[❌ Schema Error]
+    Schema -->|Yes| Entities[Validate Entities]
+
+    Entities --> EntCheck{All Valid?}
+    EntCheck -->|No| Fail2[❌ Entity Error]
+    EntCheck -->|Yes| Ops[Validate Operations]
+
+    Ops --> OpsCheck{All Valid?}
+    OpsCheck -->|No| Fail3[❌ Operation Error]
+    OpsCheck -->|Yes| Tools[Validate Tools]
+
+    Tools --> ToolCheck{All Valid?}
+    ToolCheck -->|No| Fail4[❌ Tool Error]
+    ToolCheck -->|Yes| Attest{Attestations?}
+
+    Attest -->|No| Success1[✅ Basic Valid]
+    Attest -->|Yes| SigVerify[Verify Signatures]
+
+    SigVerify --> DIDResolve[Resolve DIDs]
+    DIDResolve --> DIDCheck{Resolution OK?}
+    DIDCheck -->|No| Fail5[❌ DID Error]
+    DIDCheck -->|Yes| CryptoCheck{Signature Valid?}
+
+    CryptoCheck -->|No| Fail6[❌ Signature Error]
+    CryptoCheck -->|Yes| TLog{Transparency Log?}
+
+    TLog -->|No| Success2[✅ Signed Valid]
+    TLog -->|Yes| TLogVerify[Verify Log Inclusion]
+
+    TLogVerify --> TLogCheck{Inclusion Valid?}
+    TLogCheck -->|No| Fail7[❌ Log Error]
+    TLogCheck -->|Yes| Profile{Profile Validator?}
+
+    Profile -->|No| Success3[✅ Verifiable Valid]
+    Profile -->|Yes| ProfileCheck[Run Profile Checks]
+
+    ProfileCheck --> ProfileResult{Profile Valid?}
+    ProfileResult -->|No| Fail8[❌ Profile Error]
+    ProfileResult -->|Yes| Success4[✅ Full Valid]
+
+    style Start fill:#e1f5ff
+    style Success1 fill:#90EE90
+    style Success2 fill:#90EE90
+    style Success3 fill:#90EE90
+    style Success4 fill:#90EE90
+    style Fail1 fill:#FFB6C1
+    style Fail2 fill:#FFB6C1
+    style Fail3 fill:#FFB6C1
+    style Fail4 fill:#FFB6C1
+    style Fail5 fill:#FFB6C1
+    style Fail6 fill:#FFB6C1
+    style Fail7 fill:#FFB6C1
+    style Fail8 fill:#FFB6C1
+```
+
+**Progressive Validation Levels:**
+1. **Basic**: Schema + structure validation
+2. **Signed**: + Signature verification
+3. **Verifiable**: + Transparency log verification
+4. **Full**: + Profile-specific validation
 
 **Architecture:**
 

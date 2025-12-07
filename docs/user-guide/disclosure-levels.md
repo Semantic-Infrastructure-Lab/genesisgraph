@@ -193,6 +193,44 @@ nodes:
 
 ## Comparing the Three Levels
 
+### Visual Comparison
+
+```mermaid
+graph TD
+    subgraph "Level A: Full Transparency"
+        A1[👁️ Everything Visible]
+        A2[✅ File locations<br/>✅ Parameters<br/>✅ Tool versions<br/>✅ All metadata]
+        A3[🔍 Verification: Direct inspection]
+        A1 --> A2 --> A3
+    end
+
+    subgraph "Level B: Verified Privacy"
+        B1[🔒 Hash-Based Privacy]
+        B2[✅ Hashes only<br/>✅ Minimal metadata<br/>❌ No sensitive details]
+        B3[🔍 Verification: Hash comparison]
+        B1 --> B2 --> B3
+    end
+
+    subgraph "Level C: Zero-Knowledge"
+        C1[🛡️ Cryptographic Proof]
+        C2[✅ ZK proofs only<br/>❌ No hashes<br/>❌ No metadata]
+        C3[🔍 Verification: Proof validation]
+        C1 --> C2 --> C3
+    end
+
+    style A1 fill:#90EE90
+    style A2 fill:#90EE90
+    style A3 fill:#90EE90
+    style B1 fill:#FFD700
+    style B2 fill:#FFD700
+    style B3 fill:#FFD700
+    style C1 fill:#87CEEB
+    style C2 fill:#87CEEB
+    style C3 fill:#87CEEB
+```
+
+### Comparison Table
+
 | **Aspect** | **Level A** | **Level B** | **Level C** |
 |-----------|------------|------------|------------|
 | **Privacy** | None (public) | High (hashed) | Maximum (ZKP) |
