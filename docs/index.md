@@ -71,17 +71,14 @@ Traditional documentation can be edited. GenesisGraph provides:
 
 </div>
 
-## The Innovation: Selective Disclosure
+## Features at a Glance
 
-GenesisGraph solves the **"certification vs IP protection" dilemma** with three disclosure levels:
-
-| Level | Description | Use When |
-|-------|-------------|----------|
-| **Level A: Full Disclosure** | All details visible | Internal audits, research collaboration |
-| **Level B: Partial Envelope** | Policy claims visible, parameters hidden | Regulatory compliance |
-| **Level C: Sealed Subgraph** | Merkle commitments + TEE attestations | High-value IP, supply chains |
-
-This enables proving **ISO 9001 compliance without revealing manufacturing toolpaths**, or **AI safety compliance without exposing proprietary prompts**.
+- **666+ Comprehensive Tests** - Production-ready reliability
+- **Python & JavaScript SDKs** - Multi-language support
+- **CLI Tool** - `gg validate`, `gg verify` commands
+- **DID Resolution** - did:key, did:web, did:ion, did:ethr
+- **Transparency Logs** - RFC 6962 Certificate Transparency
+- **Profile Validators** - AI Basic, CAM, ISO 9001, FDA 21 CFR 11
 
 ## Installation
 
